@@ -84,7 +84,7 @@ public class CifradorCesar {
 				}
 				for(int x=0;x<getAlfabeto().length;x++) { //Loop para analisar o alfabeto
 					if(getMensagem().charAt(i)==getAlfabeto()[x]) { //Caso encontre a letra no alfabeto
-						if(getChave()<0) { //Chave negativa
+						if(x<getChave()) { //Chave negativa
 							//Mensagem encriptada na posição i recebe a letra do alfabeto na posição:
 							//Resto da divisão entre x (posição dentro do alfabeto)+chave+TamanhoDoAlfabeto pelo tamanho do alfabeto.
 							//PS: adicionado o TamanhoDoAlfabeto a equação, para trabalhar corretamente com a chave negativa.
@@ -126,8 +126,10 @@ public class CifradorCesar {
 					setAlfabeto(getAlfabetoLower());
 				}
 				for(int x=0;x<getAlfabeto().length;x++) { //Loop para analisar o alfabeto
+					System.out.println(x);
 					if(getMensagem().charAt(i)==getAlfabeto()[x]) { //Caso encontre a letra no alfabeto
-						if(x<getChave()) { //Chave negativa
+						System.out.println("Chegou");
+						if(getChave()<0) { //Chave negativa
 							//Mensagem encriptada na posição i recebe a letra do alfabeto na posição:
 							//Resto da divisão entre x (posição dentro do alfabeto)-chave+TamanhoDoAlfabeto pelo tamanho do alfabeto.
 							//PS: adicionado o TamanhoDoAlfabeto a equação, para trabalhar corretamente com a chave negativa.
