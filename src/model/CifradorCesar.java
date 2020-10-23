@@ -11,7 +11,9 @@ public class CifradorCesar {
 	
 	private String mensagem; //mensagem para ser criptografada
 	private int chave; //chave de criptografia
-	private static char[] alfabeto = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+	private static char[] alfabetoUpper = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+	private static char[] alfabetoLower = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+	private static char[] alfabeto;
 	//alfabeto para conversão /\
 	
 	public CifradorCesar() { //construtor vazio
@@ -41,7 +43,23 @@ public class CifradorCesar {
 		this.chave = chave;
 	}
 
-	//Getter e setter do alfabeto
+	//Getter e setter dos alfabetos
+	public static char[] getAlfabetoUpper() {
+		return alfabetoUpper;
+	}
+
+	public static void setAlfabetoUpper(char[] alfabetoUpper) {
+		CifradorCesar.alfabetoUpper = alfabetoUpper;
+	}
+
+	public static char[] getAlfabetoLower() {
+		return alfabetoLower;
+	}
+
+	public static void setAlfabetoLower(char[] alfabetoLower) {
+		CifradorCesar.alfabetoLower = alfabetoLower;
+	}
+	
 	public static char[] getAlfabeto() {
 		return alfabeto;
 	}
@@ -59,6 +77,11 @@ public class CifradorCesar {
 			if(getMensagem().charAt(i) == ' ') { //Caso a letra selecionada seja um espaço
 				msgEncriptada[i]=getMensagem().charAt(i); //Manter sem criptografia
 			}	else { //Caso normal (letra)
+				if(Character.isUpperCase(getMensagem().charAt(i))) { //Caso seja letra maíuscula
+					setAlfabeto(getAlfabetoUpper());
+				} else { //Caso seja letra minúscula
+					setAlfabeto(getAlfabetoLower());
+				}
 				for(int x=0;x<getAlfabeto().length;x++) { //Loop para analisar o alfabeto
 					if(getMensagem().charAt(i)==getAlfabeto()[x]) { //Caso encontre a letra no alfabeto
 						if(getChave()<0) { //Chave negativa
@@ -88,7 +111,7 @@ public class CifradorCesar {
 		String txt = criadorDeString.toString();
 		return txt;
 	}
-	
+
 	public String decriptar() {
 		
 		char[] msgEncriptada = new char[getMensagem().length()]; //Array de tipo char, para verificação das letras
@@ -97,6 +120,11 @@ public class CifradorCesar {
 			if(getMensagem().charAt(i) == ' ') { //Caso a letra selecionada seja um espaço
 				msgEncriptada[i]=getMensagem().charAt(i); //Manter sem criptografia
 			}	else { //Caso normal (letra)
+				if(Character.isUpperCase(getMensagem().charAt(i))) { //Caso seja letra maíuscula
+					setAlfabeto(getAlfabetoUpper());
+				} else { //Caso seja letra minúscula
+					setAlfabeto(getAlfabetoLower());
+				}
 				for(int x=0;x<getAlfabeto().length;x++) { //Loop para analisar o alfabeto
 					if(getMensagem().charAt(i)==getAlfabeto()[x]) { //Caso encontre a letra no alfabeto
 						if(x<getChave()) { //Chave negativa
