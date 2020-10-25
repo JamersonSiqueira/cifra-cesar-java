@@ -28,17 +28,17 @@ public class Tela extends JFrame
 {
 	private final JTextArea areaDeTexto; //Área para exibição de texto
 	//Botões da aplicação
-	Button botaoDecriptar;
-	Button botaoNovo;
-	Button botaoEncriptar;
-	Button botaoAbrirArquivo;
-	Button botaoSalvar;
+	private	Button botaoDecriptar;
+	private	Button botaoNovo;
+	private	Button botaoEncriptar;
+	private	Button botaoAbrirArquivo;
+	private	Button botaoSalvar;
 	//Painel de Rolagem
-	JScrollPane painelRolagem;
+	private	JScrollPane painelRolagem;
 	//Caminho absoluto dos arquivos criados/abertos
-	Path caminho;
+	private Path caminho;
 	//Chave de conversão
-	int chave;
+	private	int chave;
 	
 
 	// configura a Interface
@@ -148,7 +148,6 @@ public class Tela extends JFrame
 		ControladorInteracoesTxt leitor=new ControladorInteracoesTxt(this); //Cria-se um leitor de arquivo txt
 		leitor.criarArquivo(); //Método para criar novo arquivo
 		this.caminho = leitor.getCaminho(); //Captura do caminho do arquivo criado
-		JOptionPane.showMessageDialog(null, "Arquivo criado com sucesso!"); //Msg de confirmação
 	}
 	
 	//Método para coleta da chave de encriptação

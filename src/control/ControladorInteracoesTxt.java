@@ -25,8 +25,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ControladorInteracoesTxt {
 
 	//Instância do componente e do caminho do arquivo.
-	Component parent;
-	Path caminho;
+	private	Component parent;
+	private	Path caminho;
 	private Formatter output;
 	private String conteudo;
 

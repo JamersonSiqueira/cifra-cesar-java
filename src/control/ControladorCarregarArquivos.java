@@ -14,8 +14,8 @@ import view.Tela;
 
 public class ControladorCarregarArquivos implements ActionListener{
 	
-	Tela tela;
-	boolean ehArquivoNovo; //Indicador para "Novo Arquivo", se for true, irá salvar como novo arquivo, se for false, irá abrir arquivo existente
+	private	Tela tela;
+	private boolean ehArquivoNovo; //Indicador para "Novo Arquivo", se for true, irá salvar como novo arquivo, se for false, irá abrir arquivo existente
 	
 	public ControladorCarregarArquivos(Tela tela, boolean ehArquivoNovo) {
 		this.ehArquivoNovo=ehArquivoNovo;

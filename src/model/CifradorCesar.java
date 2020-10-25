@@ -11,9 +11,9 @@ public class CifradorCesar {
 	
 	private String mensagem; //mensagem para ser criptografada
 	private int chave; //chave de criptografia
-	private static char[] alfabetoUpper = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-	private static char[] alfabetoLower = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-	private static char[] alfabeto;
+	private char[] alfabetoUpper = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+	private char[] alfabetoLower = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+	private char[] alfabeto;
 	//alfabeto para conversão /\
 	
 	public CifradorCesar() { //construtor vazio
@@ -44,33 +44,32 @@ public class CifradorCesar {
 	}
 
 	//Getter e setter dos alfabetos
-	public static char[] getAlfabetoUpper() {
+	public char[] getAlfabetoUpper() {
 		return alfabetoUpper;
 	}
 
-	public static void setAlfabetoUpper(char[] alfabetoUpper) {
-		CifradorCesar.alfabetoUpper = alfabetoUpper;
+	public void setAlfabetoUpper(char[] alfabetoUpper) {
+		this.alfabetoUpper = alfabetoUpper;
 	}
 
-	public static char[] getAlfabetoLower() {
+	public char[] getAlfabetoLower() {
 		return alfabetoLower;
 	}
 
-	public static void setAlfabetoLower(char[] alfabetoLower) {
-		CifradorCesar.alfabetoLower = alfabetoLower;
+	public void setAlfabetoLower(char[] alfabetoLower) {
+		this.alfabetoLower = alfabetoLower;
 	}
 	
-	public static char[] getAlfabeto() {
+	public char[] getAlfabeto() {
 		return alfabeto;
 	}
 
-	public static void setAlfabeto(char[] alfabeto) {
-		CifradorCesar.alfabeto = alfabeto;
+	public void setAlfabeto(char[] alfabeto) {
+		this.alfabeto = alfabeto;
 	}
 	
 	//Método de encriptação
 	public String encriptar() {
-		
 		char[] msgEncriptada = new char[getMensagem().length()]; //Array de tipo char, para verificação das letras
 		
 		for(int i=0;i<getMensagem().length();i++) { //for analisando letra a letra
@@ -115,6 +114,12 @@ public class CifradorCesar {
 	public String decriptar() {
 		
 		char[] msgEncriptada = new char[getMensagem().length()]; //Array de tipo char, para verificação das letras
+		int chaveAtual;
+		
+		if(getChave()>26)
+			chaveAtual=(getChave()%26);
+		else
+			chaveAtual=getChave();
 		
 		for(int i=0;i<getMensagem().length();i++) { //Caso a letra selecionada seja um espaço
 			if(getMensagem().charAt(i) == ' ') { //Caso a letra selecionada seja um espaço
@@ -126,21 +131,20 @@ public class CifradorCesar {
 					setAlfabeto(getAlfabetoLower());
 				}
 				for(int x=0;x<getAlfabeto().length;x++) { //Loop para analisar o alfabeto
-					System.out.println(x);
-					if(getMensagem().charAt(i)==getAlfabeto()[x]) { //Caso encontre a letra no alfabeto
-						System.out.println("Chegou");
-						if(getChave()<0) { //Chave negativa
+					if(getMensagem().charAt(i)==getAlfabeto()[x]) {
+							//Caso encontre a letra no alfabeto
+						if(chaveAtual<0) { //Chave negativa
 							//Mensagem encriptada na posição i recebe a letra do alfabeto na posição:
 							//Resto da divisão entre x (posição dentro do alfabeto)-chave+TamanhoDoAlfabeto pelo tamanho do alfabeto.
 							//PS: adicionado o TamanhoDoAlfabeto a equação, para trabalhar corretamente com a chave negativa.
-							msgEncriptada[i]=getAlfabeto()[(x-getChave()
+							msgEncriptada[i]=getAlfabeto()[(x-chaveAtual
 									+getAlfabeto().length)%getAlfabeto().length];
 							//x vira tamanho do alfabeto (reset)
 							x=getAlfabeto().length;
 						} else { //Chave positiva
 							//Mensagem encriptada na posição i recebe a letra do alfabeto na posição:
 							//Resto da divisão entre x (posição dentro do alfabeto)+chave pelo tamanho do alfabeto.
-							msgEncriptada[i]=getAlfabeto()[(x-getChave())%getAlfabeto().length];
+							msgEncriptada[i]=getAlfabeto()[(x-chaveAtual)%getAlfabeto().length];
 							//x vira tamanho do alfabeto (reset)
 							x=getAlfabeto().length;
 						}
