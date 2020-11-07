@@ -71,7 +71,14 @@ public class CifradorCesar {
 	//Método de encriptação
 	public String encriptar() {
 		char[] msgEncriptada = new char[getMensagem().length()]; //Array de tipo char, para verificação das letras
+		int chaveAtual;//Chave utilizada
 		
+		//Correção das chaves (para evitar bugs com valores)
+				if(getChave()>26)
+					chaveAtual=(getChave()%26);
+				else
+					chaveAtual=getChave();
+				
 		for(int i=0;i<getMensagem().length();i++) { //for analisando letra a letra
 			if(getMensagem().charAt(i) == ' ') { //Caso a letra selecionada seja um espaço
 				msgEncriptada[i]=getMensagem().charAt(i); //Manter sem criptografia
@@ -87,14 +94,14 @@ public class CifradorCesar {
 							//Mensagem encriptada na posição i recebe a letra do alfabeto na posição:
 							//Resto da divisão entre x (posição dentro do alfabeto)+chave+TamanhoDoAlfabeto pelo tamanho do alfabeto.
 							//PS: adicionado o TamanhoDoAlfabeto a equação, para trabalhar corretamente com a chave negativa.
-							msgEncriptada[i]=getAlfabeto()[(x+getChave()
+							msgEncriptada[i]=getAlfabeto()[(x+chaveAtual
 							+getAlfabeto().length)%getAlfabeto().length]; 
 							//x vira tamanho do alfabeto (reset)
 							x=getAlfabeto().length;
 						} else { //Chave positiva
 							//Mensagem encriptada na posição i recebe a letra do alfabeto na posição:
 							//Resto da divisão entre x (posição dentro do alfabeto)+chave pelo tamanho do alfabeto.
-							msgEncriptada[i]=getAlfabeto()[(x+getChave())%getAlfabeto().length];
+							msgEncriptada[i]=getAlfabeto()[(x+chaveAtual)%getAlfabeto().length];
 							//x vira tamanho do alfabeto (reset)
 							x=getAlfabeto().length;
 						}
@@ -114,8 +121,8 @@ public class CifradorCesar {
 	public String decriptar() {
 		
 		char[] msgEncriptada = new char[getMensagem().length()]; //Array de tipo char, para verificação das letras
-		int chaveAtual;
-		
+		int chaveAtual; //Chave utilizada
+		//Correção das chaves (para evitar bugs com valores)
 		if(getChave()>26)
 			chaveAtual=(getChave()%26);
 		else

@@ -152,7 +152,7 @@ public class Tela extends JFrame
 	
 	//Método para coleta da chave de encriptação
 	public void chave() {
-		this.chave = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira a chave"));
+		this.chave = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira a chave numérica"));
 		//JPanel solicitando a chave para o usuário
 	}
 	

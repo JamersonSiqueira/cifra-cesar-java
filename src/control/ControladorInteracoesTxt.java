@@ -72,11 +72,11 @@ public class ControladorInteracoesTxt {
 	private Path pegaCaminhoDeArquivoOuDiretorio(){
 		// configura dialogo para selecionar arquivo ou diretorio
 		JFileChooser escolhedorDeCaminho = new JFileChooser();
-		escolhedorDeCaminho.setCurrentDirectory(new File("."));
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Texto (.txt)", "txt", "text");
-		escolhedorDeCaminho.setFileFilter(filter);
-		escolhedorDeCaminho.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		int resultado = escolhedorDeCaminho.showOpenDialog(this.parent);
+		escolhedorDeCaminho.setCurrentDirectory(new File(".")); //aponta o diretório para a raiz do projeto
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Texto (.txt)", "txt", "text"); //filtro para só aceitar .txt
+		escolhedorDeCaminho.setFileFilter(filter); //Faz o FileChooser receber o filtro
+		escolhedorDeCaminho.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); //Modo de seleção para "Arquivos e diretórios"
+		int resultado = escolhedorDeCaminho.showOpenDialog(this.parent); //Resultado da abertura de arquivo
 
 		// se o usuario clicar em cancelar, encerra programa
 		if (resultado == JFileChooser.CANCEL_OPTION)
@@ -89,14 +89,14 @@ public class ControladorInteracoesTxt {
 	public void criarArquivo()	{
 		// configura dialogo para selecionar arquivo ou diretorio
 		JFileChooser escolhedorDeCaminho = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("Texto (.txt)", "txt", "text");
-		escolhedorDeCaminho.setFileFilter(filter);
-		escolhedorDeCaminho.setCurrentDirectory(new File("."));
-		int resultado = escolhedorDeCaminho.showSaveDialog(this.parent); //parent component to JFileChooser
-		if (resultado == JFileChooser.APPROVE_OPTION) { //OK button pressed by user
-		        File file = escolhedorDeCaminho.getSelectedFile();
-		        this.caminho = file.toPath();
-		        this.caminho = caminho.resolveSibling(caminho.getFileName() + ".txt");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Texto (.txt)", "txt", "text");//filtro para só aceitar .txt
+		escolhedorDeCaminho.setFileFilter(filter);//Faz o FileChooser receber o filtro
+		escolhedorDeCaminho.setCurrentDirectory(new File("."));//aponta o diretório para a raiz do projeto
+		int resultado = escolhedorDeCaminho.showSaveDialog(this.parent); //Resultado da abertura de arquivo
+		if (resultado == JFileChooser.APPROVE_OPTION) { //Caso o botão de OK seja pressionado
+		        File file = escolhedorDeCaminho.getSelectedFile(); //Novo arquivo a ser gerado
+		        this.caminho = file.toPath(); //Faz a variável caminho receber o caminho do arquivo
+		        this.caminho = caminho.resolveSibling(caminho.getFileName() + ".txt"); //Salva arquivo com .txt no final
 		}
 
 		// se o usuario clicar em cancelar, encerra programa
@@ -113,20 +113,20 @@ public class ControladorInteracoesTxt {
 		this.caminho = caminho;
 	}
 	
-	   public void salvar(Path caminho,String conteudo) {
+	   public void salvar(Path caminho,String conteudo) { //Método para guardar caminho e conteúdo, para salvar
 		   this.caminho = caminho;
 		   this.conteudo = conteudo;
-		   salvarArquivo();
+		   salvarArquivo(); //Coleta as informações e envia para o método salvarArquivo();
 	   }
 	   
 	   
-	   public void salvarArquivo()
+	   public void salvarArquivo() //Método para salvar novos arquivos.
 	   {
 	      try
 	      {
-	         output = new Formatter(this.caminho.toString()); // abre arquivo
+	         output = new Formatter(this.caminho.toString()); // Indica qual a saída do objeto (local a ser salvo)
 	      }
-	      catch (SecurityException securityException)
+	      catch (SecurityException securityException) //Catch dos erros
 	      {
 	         System.err.println("Permissao de escrita negada. Terminando.");
 	         System.exit(1); //encerra o programa
@@ -136,18 +136,13 @@ public class ControladorInteracoesTxt {
 	         System.err.println("Erro ao abrir o arquivo. Termindo.");
 	         System.exit(1); //encerra o programa
 	      } 
-	      adicionarRegistros();
-	   } 
-
-	   // adiciona registros ao arquivo
-	   public void adicionarRegistros()
-	   {
-	         try
+	      
+	      try
 	         {
-	            // saida do novo registro ara o arquivo; assume que as entradas foram validas
+	            // Saída do novo arquivo, dentro do caminho coletado, após o output ser devidamente criado
 	            output.format(this.conteudo);                             
 	         } 
-	         catch (FormatterClosedException formatterClosedException)
+	         catch (FormatterClosedException formatterClosedException) //exceções de erro
 	         {
 	            System.err.println("Erro escrevendo no arquivo. Terminando.");
 	         } 
@@ -156,11 +151,12 @@ public class ControladorInteracoesTxt {
 	            System.err.println("Entrada invalida. Por favor tente novamente.");  
 	         }
 	         
-	         fecharArquivo();
-	}
+	         fecharArquivo(); //método para fechar o output.
+	   } 
+
 	   
 
-	   // fecha arquivos
+	   // fecha ouput de arquivos
 	   public void fecharArquivo()
 	   {
 	      if (output != null)
